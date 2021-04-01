@@ -31,7 +31,6 @@ func (t CorsTransport) RoundTrip(r *http.Request) (*http.Response, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	return res, nil
 }
 
@@ -60,5 +59,6 @@ func main() {
 		proxy.ServeHTTP(w, r)
 	})
 
+	fmt.Println("Starting PanCORS…")
 	log.Fatal(http.ListenAndServe(getListenPort(), nil))
 }
