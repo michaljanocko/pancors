@@ -59,6 +59,6 @@ func main() {
 		proxy.ServeHTTP(w, r)
 	})
 
-	fmt.Println("Starting PanCORS…")
+	fmt.Println("Initialized PanCORS")
 	log.Fatal(http.ListenAndServe(getListenPort(), nil))
 }
