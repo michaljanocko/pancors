@@ -15,6 +15,7 @@ func getListenPort() string {
 	if !isSet {
 		return ":8080"
 	}
+
 	return ":" + port
 }
 
@@ -31,6 +32,10 @@ func (t CorsTransport) RoundTrip(r *http.Request) (*http.Response, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	res.Header.Set("Access-Control-Allow-Origin", "*")
+	res.Header.Set("Access-Control-Allow-Credentials", "true")
+
 	return res, nil
 }
 
@@ -44,18 +49,13 @@ func main() {
 			return
 		}
 
-		headers := http.Header{}
-		headers.Set("Access-Control-Allow-Origin", "*")
-		headers.Set("Access-Control-Allow-Credentials", "true")
-
 		proxy := httputil.ReverseProxy{
 			Director: func(r *http.Request) {
 				r.URL = urlParsed
 				r.Host = urlParsed.Host
 			},
-			Transport: CorsTransport(headers),
+			Transport: CorsTransport(http.Header{}),
 		}
-
 		proxy.ServeHTTP(w, r)
 	})
 
