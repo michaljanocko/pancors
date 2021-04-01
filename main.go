@@ -15,7 +15,6 @@ func getListenPort() string {
 	if !isSet {
 		return ":8080"
 	}
-
 	return ":" + port
 }
 
@@ -28,6 +27,7 @@ type CorsTransport http.Header
 
 func (t CorsTransport) RoundTrip(r *http.Request) (*http.Response, error) {
 	res, err := http.DefaultTransport.RoundTrip(r)
+
 	if err != nil {
 		return nil, err
 	}
