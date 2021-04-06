@@ -1,12 +1,19 @@
-package main
+package pancors
 
 import (
+	"fmt"
+	"log"
 	"net/http"
 	"testing"
 )
 
 func TestProxy(t *testing.T) {
-	go main()
+	go func() {
+		http.HandleFunc("/", HandleProxy)
+
+		fmt.Println("Initialized PanCORS")
+		log.Fatal(http.ListenAndServe(":8080", nil))
+	}()
 
 	url := "http://localhost:8080/?url=https%3A%2F%2Fsuggest.seznam.cz%2Fslovnik%2Fmix_cz_en%3Fphrase%3Dtest%26format%3Djson-2"
 	req, err := http.NewRequest("GET", url, nil)
