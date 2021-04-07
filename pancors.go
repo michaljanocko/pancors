@@ -35,6 +35,7 @@ func HandleProxy(w http.ResponseWriter, r *http.Request) {
 		invalidUrl(w)
 		return
 	}
+
 	proxy := httputil.ReverseProxy{
 		Director: func(r *http.Request) {
 			r.URL = urlParsed
@@ -42,5 +43,6 @@ func HandleProxy(w http.ResponseWriter, r *http.Request) {
 		},
 		Transport: CorsTransport(http.Header{}),
 	}
+
 	proxy.ServeHTTP(w, r)
 }
