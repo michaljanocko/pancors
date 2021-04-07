@@ -2,7 +2,7 @@
 
 We all know how it feels when you want to fetch something and CORS screws it all up.
 
-**Meet PanCORS:** super light-weight CORS-anywhere proxy implemented in only 2<sup>6</sup> lines of Go code.
+**Meet PanCORS:** super light-weight CORS-anywhere proxy implemented in just a few lines of Go code.
 
 ## Installation
 
