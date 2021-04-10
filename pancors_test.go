@@ -23,7 +23,7 @@ func TestProxy(t *testing.T) {
 		expected expected
 	}{
 		{
-			"https url with params",
+			"HTTPS URL with params",
 			"https://suggest.seznam.cz/slovnik/mix_cz_en?phrase=test&format=json-2",
 			expected{
 				http.StatusOK,
@@ -34,7 +34,7 @@ func TestProxy(t *testing.T) {
 			},
 		},
 		{
-			"http url with params",
+			"HTTP URL with params",
 			"http://suggest.seznam.cz/slovnik/mix_cz_en?phrase=test&format=json-2",
 			expected{
 				http.StatusOK,
@@ -45,14 +45,14 @@ func TestProxy(t *testing.T) {
 			},
 		},
 		{
-			"empty url",
+			"Empty URL",
 			"",
 			expected{
 				statusCode: http.StatusBadRequest,
 			},
 		},
 		{
-			"non http(s) url",
+			"Non-HTTP(S) URL",
 			"ftp://example.com",
 			expected{
 				statusCode: http.StatusBadRequest,
@@ -61,11 +61,10 @@ func TestProxy(t *testing.T) {
 	}
 
 	for _, tc := range tests {
-		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
 			u, err := url.Parse(ts.URL)
 			if err != nil {
-				t.Logf("could not parse test server's url; got %v", err)
+				t.Logf("Could not parse test server's url; got %v", err)
 				t.FailNow()
 			}
 
@@ -75,26 +74,26 @@ func TestProxy(t *testing.T) {
 
 			req, err := http.NewRequestWithContext(context.Background(), "GET", u.String(), nil)
 			if err != nil {
-				t.Logf("could not prepare a request; got %v", err)
+				t.Logf("Could not prepare a request; got %v", err)
 				t.FailNow()
 			}
 
 			rsp, err := http.DefaultClient.Do(req)
 			if err != nil {
-				t.Log("could not fetch testing data")
+				t.Log("Could not fetch testing data")
 				t.FailNow()
 			}
 			defer rsp.Body.Close()
 
 			if rsp.StatusCode != tc.expected.statusCode {
-				t.Logf("expected HTTP status code %d; got %d", tc.expected.statusCode, rsp.StatusCode)
+				t.Logf("Expected HTTP status code %d; got %d", tc.expected.statusCode, rsp.StatusCode)
 				t.Fail()
 			}
 
 			for header, expected := range tc.expected.headers {
 				actual := rsp.Header.Get(header)
 				if actual != expected {
-					t.Logf("expected header %s = %s; got: %v", header, expected, actual)
+					t.Logf("Expected header %s = %s; got: %v", header, expected, actual)
 					t.Fail()
 				}
 			}
