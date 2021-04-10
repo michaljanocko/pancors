@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -10,18 +9,16 @@ import (
 )
 
 func getListenPort() string {
-	port, isSet := os.LookupEnv("PORT")
-
-	if !isSet {
-		return ":8080"
+	if port, ok := os.LookupEnv("PORT"); ok {
+		return ":" + port
 	}
-
-	return ":" + port
+	return ":8080"
 }
 
 func main() {
 	http.HandleFunc("/", pancors.HandleProxy)
 
-	fmt.Println("Initialized PanCORS")
-	log.Fatal(http.ListenAndServe(getListenPort(), nil))
+	port := getListenPort()
+	log.Printf("PanCORS started listening at %s\n", port)
+	log.Fatal(http.ListenAndServe(port, nil))
 }
