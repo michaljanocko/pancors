@@ -18,6 +18,8 @@ Just pass your desired request the the root endpoint like this:
 
 Please include the scheme (`https` or `http`) to qualify as a valid URL. PanCORS can't proxy other protocols so it has to check.
 
+If you need to request something from a server that checks the `Referer` header, you can set the `&referer=` URL parameter and PanCORS will send the request with the correct referer.
+
 Also, don't forget to query encode the address because some URI implementations merge neighboring slashes into one if they're part of the path or query (e.g. `https://` wouldn't work and would come out as `https:/` so that why we have to encode it as a param; this is the safest way IMO)
 
 ## Manifesto
