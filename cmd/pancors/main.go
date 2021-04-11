@@ -19,6 +19,6 @@ func main() {
 	http.HandleFunc("/", pancors.HandleProxy)
 
 	port := getListenPort()
-	log.Printf("PanCORS started listening at %s\n", port)
+	log.Printf("PanCORS started listening on %s\n", port)
 	log.Fatal(http.ListenAndServe(port, nil))
 }
