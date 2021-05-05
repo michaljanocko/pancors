@@ -6,9 +6,9 @@ import (
 	"net/url"
 )
 
-type CorsTransport string
+type corsTransport string
 
-func (t CorsTransport) RoundTrip(r *http.Request) (*http.Response, error) {
+func (t corsTransport) RoundTrip(r *http.Request) (*http.Response, error) {
 	r.Header.Add("Referer", string(t))
 
 	res, err := http.DefaultTransport.RoundTrip(r)
@@ -22,6 +22,8 @@ func (t CorsTransport) RoundTrip(r *http.Request) (*http.Response, error) {
 	return res, nil
 }
 
+// HandleProxy is handler which passes requests through to the host
+// and returns their responses with CORS headers
 func HandleProxy(w http.ResponseWriter, r *http.Request) {
 	urlParam := r.URL.Query().Get("url")
 
@@ -41,7 +43,7 @@ func HandleProxy(w http.ResponseWriter, r *http.Request) {
 			r.URL = urlParsed
 			r.Host = urlParsed.Host
 		},
-		Transport: CorsTransport(referer),
+		Transport: corsTransport(referer),
 	}
 
 	proxy.ServeHTTP(w, r)
