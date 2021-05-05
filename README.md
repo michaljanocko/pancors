@@ -6,6 +6,14 @@ We all know how it feels when you want to fetch something and CORS screws it all
 
 ## Installation
 
+From DockerHub:
+
+`docker pull michaljanocko/pancors` and just run it! 🚀
+
+> The container is also published on (GitHub Container Registry)[https://ghcr.io]
+
+You can also build it yourself:
+
 1. Clone the repo
 2. `docker build -t pancors .`
 3. `docker run --rm -d -p 8080:8080/tcp pancors:latest`
