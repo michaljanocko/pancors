@@ -7,7 +7,7 @@ on:
     # Publish `v1.2.3` tags as releases.
     tags:
       - v*
-  pull_request: ~
+  workflow_dispatch: ~
 
 jobs:
   push_to_registries:
@@ -38,6 +38,4 @@ jobs:
           push: true
           tags: |
             michaljanocko/pancors:latest
-            michaljanocko/pancors:1.0
             ghcr.io/michaljanocko/pancors:latest
-            ghcr.io/michaljanocko/pancors:1.0
