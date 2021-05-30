@@ -38,6 +38,4 @@ jobs:
           push: true
           tags: |
             michaljanocko/pancors:latest
-            michaljanocko/pancors:1.0
             ghcr.io/michaljanocko/pancors:latest
-            ghcr.io/michaljanocko/pancors:1.0
