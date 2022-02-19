@@ -20,7 +20,7 @@ You can also build it yourself:
 
 ## Usage
 
-Just pass your desired request the the root endpoint like this:
+Just pass your desired request to the root endpoint like this:
 
 `https://pan.cors/?url=https%3A%2F%2Fmichaljanocko.com`
 
