@@ -1,4 +1,4 @@
-FROM golang:1-alpine
+FROM golang:1-alpine AS builder
 
 RUN mkdir /pancors
 WORKDIR /pancors
@@ -9,6 +9,9 @@ COPY cmd/ cmd/
 
 RUN go build -o pancors ./cmd/pancors/main.go
 
-EXPOSE 8080
+FROM alpine:latest
 
-CMD [ "./pancors" ]
+COPY --from=builder /pancors/pancors /usr/bin/
+EXPOSE 8080
+USER nobody
+CMD ["/usr/bin/pancors"]
